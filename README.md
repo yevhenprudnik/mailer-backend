@@ -6,7 +6,7 @@ A coursework for UzhNU. An e-mailing app that utilizes Node.js runtime and follo
 
 ## Table of Contents
 
-- [Setup](#installation)
+- [Setup](#setup)
 - [Todos](#todos)
 
 ## Setup
