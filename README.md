@@ -1,4 +1,5 @@
 
+
 # Mailer backend
 
 A coursework for UzhNU. An e-mailing app that utilizes Node.js runtime and follows clean architecture approach.
@@ -36,6 +37,11 @@ A coursework for UzhNU. An e-mailing app that utilizes Node.js runtime and follo
 
     ```bash
     npm start
+    ```
+6. Ensure the app is running:
+
+    ```bash
+	curl http://localhost:3000/root/healthcheck
     ```
 ## Todos:
 1. Implement publish functionality.
