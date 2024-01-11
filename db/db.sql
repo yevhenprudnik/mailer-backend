@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS mailer;
+CREATE DATABASE mailer OWNER postgres;
