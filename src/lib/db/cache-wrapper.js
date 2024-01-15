@@ -1,16 +1,18 @@
-/** @type {Record<string, any>} */
-const cache = {};
-
 /** @type {import('./types/cache-wrapper.d.ts').init} */
-export const wrapper = (repo) => ({
-  findOneCached: async (definition) => {
+const init = (redis) => (repo) => ({
+  findOneCached: async (definition, ttl = 60) => {
     if (!definition.id) return repo.findOne(definition);
     const key = `${repo.table}:${definition.id}`;
-    if (key in cache) return cache[key];
-    cache[key] = await repo.findOne(definition);
+    const cached = await redis.get(key);
+    if (cached)return JSON.parse(cached);
+    const record = await repo.findOne(definition);
+    await redis.set(key, JSON.stringify(record));
+    await redis.expire(key, ttl);
 
-    return cache[key];
+    return record;
   },
 
   ...repo,
 });
+
+export default { init };

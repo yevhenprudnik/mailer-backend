@@ -12,7 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "jsonwebtoken": "^9.0.2",
-    "pg": "^8.11.3"
+    "pg": "^8.11.3",
+    "redis": "^4.6.12"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.5",
