@@ -1,12 +1,12 @@
 import { CreateTopic, Topic, UpdateTopic } from '../../entities/topic.d.ts';
 import { Subscription } from '../../entities/subscription.d.ts';
 import { Utils } from '../../lib/types/utils.d.ts';
-import { Repository } from '../../lib/types/db.d.ts';
+import { RepoWrapper } from '../../lib/db/types/cache-wrapper.d.ts';
 import { UseCase } from './useCase.d.ts';
 
 interface Deps {
-  topicRepo: Repository<Topic>;
-  subscriptionRepo: Repository<Subscription>;
+  topicRepo: RepoWrapper<Topic>;
+  subscriptionRepo: RepoWrapper<Subscription>;
   utils: Utils;
 }
 

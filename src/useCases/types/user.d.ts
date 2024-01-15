@@ -1,10 +1,10 @@
 import { Utils } from '../../lib/types/utils.d.ts';
 import { User } from '../../entities/user.d.ts';
-import { Repository } from '../../lib/types/db.d.ts';
+import { RepoWrapper } from '../../lib/db/types/cache-wrapper.d.ts';
 import { UseCase } from './useCase.d.ts';
 
 interface Deps {
-  userRepo: Repository<User>;
+  userRepo: RepoWrapper<User>;
   utils: Utils;
 }
 

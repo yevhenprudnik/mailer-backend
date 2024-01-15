@@ -1,5 +1,6 @@
 /** @type {import('./types/db.d.ts').init} */
 const init = (pool) => (table) => ({
+  table,
   async create(definition) {
     const keys = Object.keys(definition)
       .map((key) => `"${key}"`)

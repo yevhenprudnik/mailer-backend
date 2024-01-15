@@ -1,6 +1,6 @@
 import { IncomingHttpHeaders } from 'node:http';
 import { User } from '../../entities/user.d.ts';
-import { Repository } from './db.d.ts';
+import { Repository } from '../db/types/db.d.ts';
 import { Utils } from './utils.d.ts';
 import { Session } from '../../useCases/types/useCase.d.ts';
 import { Config } from '../../../types/config.d.ts';
