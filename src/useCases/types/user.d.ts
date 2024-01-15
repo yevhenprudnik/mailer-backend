@@ -11,6 +11,7 @@ interface Deps {
 interface UserCases {
   me: UseCase<{}, Promise<Partial<User>>>;
   search: UseCase<Partial<User>, Promise<User[]>>;
+  profile: UseCase<{id: number}, Promise<User>>;
 }
 
 export function init(deps: Deps): UserCases;

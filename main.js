@@ -19,8 +19,7 @@ const entitiesFiles = await fsp.readdir('./src/entities');
 for (const name of entitiesFiles) {
   const tableName = path.basename(name, '.d.ts');
   const repoKey = tableName + 'Repo';
-  const repo = db(tableName);
-  repositories[repoKey] = { ...repo, ...wrapper(repo) };
+  repositories[repoKey] = wrapper(db(tableName));
 }
 
 const utils = utilsInitializer.init();
