@@ -1,6 +1,6 @@
 import { User } from '../../entities/user.d.ts';
 import { Common } from '../../lib/types/common.d.ts';
-import { RepoWrapper } from '../../lib/db/types/cache-wrapper.d.ts';
+import { RepoWrapper } from '../../lib/db/cache/types/cache-wrapper.d.ts';
 import { Utils } from '../../lib/types/utils.d.ts';
 import { Session, UseCase } from './useCase.d.ts';
 

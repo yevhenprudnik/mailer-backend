@@ -1,7 +1,7 @@
 import { CreateTopic, Topic, UpdateTopic } from '../../entities/topic.d.ts';
 import { Subscription } from '../../entities/subscription.d.ts';
 import { Utils } from '../../lib/types/utils.d.ts';
-import { RepoWrapper } from '../../lib/db/types/cache-wrapper.d.ts';
+import { RepoWrapper } from '../../lib/db/cache/types/cache-wrapper.d.ts';
 import { UseCase } from './useCase.d.ts';
 
 interface Deps {

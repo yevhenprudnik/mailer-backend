@@ -7,7 +7,8 @@ import dbInitializer from './src/lib/db/db.js';
 import utilsInitializer from './src/lib/utils.js';
 import commonInitializer from './src/lib/common.js';
 import serverInitializer from './src/lib/transport/http-server.js';
-import cacheWrapperInitializer from './src/lib/db/cache-wrapper.js';
+import redisStorageInitializer from './src/lib/db/cache/redis-storage.js';
+import cacheWrapperInitializer from './src/lib/db/cache/cache-wrapper.js';
 /**
  * @typedef {import('./src/lib/db/types/db.d.ts').Repository<any>} Repository
  * @typedef {import('./src/useCases/types/useCase.js').UseCasesContainer} UseCasesContainer
@@ -16,7 +17,12 @@ import cacheWrapperInitializer from './src/lib/db/cache-wrapper.js';
 const client = createClient();
 client.on('error', (err) => console.log('Redis Client Error', err));
 await client.connect();
-const cacheWrapper = cacheWrapperInitializer.init(client);
+const redis = redisStorageInitializer.init(client);
+const cacheWrapper = cacheWrapperInitializer.init(redis);
+// NOSONAR
+// import mapStorageInitializer from './src/lib/db/cache/map-storage.js'
+// const mapStorage = mapStorageInitializer.init(new Map())
+// const cacheWrapper = cacheWrapperInitializer.init(mapStorage);
 
 const db = dbInitializer.init(new pg.Pool(config.db));
 /** @type {Record<string, Repository>} */

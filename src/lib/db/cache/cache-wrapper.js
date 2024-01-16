@@ -1,13 +1,12 @@
 /** @type {import('./types/cache-wrapper.d.ts').init} */
-const init = (redis) => (repo) => ({
+const init = (storage) => (repo) => ({
   findOneCached: async (definition, ttl = 60) => {
     if (!definition.id) return repo.findOne(definition);
     const key = `${repo.table}:${definition.id}`;
-    const cached = await redis.get(key);
-    if (cached)return JSON.parse(cached);
+    const cached = await storage.get(key);
+    if (cached) return cached;
     const record = await repo.findOne(definition);
-    await redis.set(key, JSON.stringify(record));
-    await redis.expire(key, ttl);
+    await storage.set(key, record, ttl);
 
     return record;
   },

@@ -2,7 +2,7 @@ import { Mail, CreateMail, UpdateMail } from '../../entities/mail.d.ts';
 import { Topic } from '../../entities/topic.d.ts';
 import { UseCase } from './useCase.d.ts';
 import { Utils } from '../../lib/types/utils.d.ts';
-import { RepoWrapper } from '../../lib/db/types/cache-wrapper.d.ts';
+import { RepoWrapper } from '../../lib/db/cache/types/cache-wrapper.d.ts';
 
 interface Deps {
   topicRepo: RepoWrapper<Topic>;
