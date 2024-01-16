@@ -1,8 +1,8 @@
 import { createServer } from 'node:http';
-import { ApiException } from './utils.js';
-import { DEFAULT_SESSION, DEFAULT_HEADERS } from './constants.js';
+import { ApiException } from '../utils.js';
+import { DEFAULT_SESSION, DEFAULT_HEADERS } from '../constants.js';
 
-/** @type {import('./types/server.d.ts').init} */
+/** @type {import('./types/http-server.d.ts').init} */
 const init = ({ useCasesContainer, common, utils }) =>
   createServer(async (req, res) => {
     try {

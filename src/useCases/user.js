@@ -14,4 +14,12 @@ export const init = ({ userRepo }) => ({
       return userRepo.findMany(params);
     },
   },
+
+  profile: {
+    handler: async (_, params) => {
+      const { id } = params;
+
+      return userRepo.findOneCached({ id });
+    },
+  },
 });
