@@ -19,7 +19,7 @@ export const init = ({ userRepo }) => ({
     handler: async (_, params) => {
       const { id } = params;
 
-      return userRepo.findOneCached({ id });
+      return userRepo.findOne({ id });
     },
   },
 });
