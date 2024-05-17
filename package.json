@@ -11,6 +11,7 @@
   "author": "Yevhen Prudnik",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.11.3",
     "redis": "^4.6.12"

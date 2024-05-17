@@ -1,24 +1,24 @@
 import * as fsp from 'node:fs/promises';
 import path from 'node:path';
 import pg from 'pg';
-import { createClient } from 'redis';
+// import { createClient } from 'redis';
 import config from './config.js';
 import dbInitializer from './src/lib/db/db.js';
 import utilsInitializer from './src/lib/utils.js';
 import commonInitializer from './src/lib/common.js';
 import serverInitializer from './src/lib/transport/http-server.js';
-import redisStorageInitializer from './src/lib/db/cache/redis-storage.js';
-import cacheWrapperInitializer from './src/lib/db/cache/cache-wrapper.js';
+// import redisStorageInitializer from './src/lib/db/cache/redis-storage.js';
+// import cacheWrapperInitializer from './src/lib/db/cache/cache-wrapper.js';
 /**
  * @typedef {import('./src/lib/db/types/db.d.ts').Repository<any>} Repository
  * @typedef {import('./src/useCases/types/useCase.js').UseCasesContainer} UseCasesContainer
  */
 
-const client = createClient();
-client.on('error', (err) => console.log('Redis Client Error', err));
-await client.connect();
-const redis = redisStorageInitializer.init(client);
-const cacheWrapper = cacheWrapperInitializer.init(redis);
+// const client = createClient();
+// client.on('error', (err) => console.log('Redis Client Error', err));
+// await client.connect();
+// const redis = redisStorageInitializer.init(client);
+// const cacheWrapper = cacheWrapperInitializer.init(redis);
 // NOSONAR
 // import mapStorageInitializer from './src/lib/db/cache/map-storage.js'
 // const mapStorage = mapStorageInitializer.init(new Map())
@@ -31,7 +31,7 @@ const entitiesFiles = await fsp.readdir('./src/entities');
 for (const name of entitiesFiles) {
   const tableName = path.basename(name, '.d.ts');
   const repoKey = tableName + 'Repo';
-  repositories[repoKey] = cacheWrapper(db(tableName));
+  repositories[repoKey] = db(tableName); // repositories[repoKey] = cacheWrapper(db(tableName));
 }
 
 const utils = utilsInitializer.init();
