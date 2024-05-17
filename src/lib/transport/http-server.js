@@ -7,6 +7,10 @@ const init = ({ useCasesContainer, common, utils }) =>
   createServer(async (req, res) => {
     try {
       const { url, headers, method } = req;
+      if (method === 'OPTIONS') {
+        res.writeHead(204, DEFAULT_HEADERS);
+        return res.end();
+      }
       if (!url) throw utils.exception.notFound();
       const [domain, action, id] = url.substring(1).split('/');
       const domainCases = useCasesContainer[domain];
