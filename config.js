@@ -13,5 +13,14 @@ export default {
     user: process.env.DB_USER || 'postgres',
     password: process.env.DB_PASSWORD || 'postgres',
   },
+  smtp: {
+    host: process.env.SMTP_HOST || '',
+    port:  parseInt(process.env.SMTP_PORT || '0'),
+    secure: process.env.SMTP_PORT === 'true',
+    auth: {
+      user: process.env.SMTP_USER || '',
+      pass: process.env.SMTP_PASS || '',
+    },
+  },
   secret: 'SUPER_SECRET',
 };

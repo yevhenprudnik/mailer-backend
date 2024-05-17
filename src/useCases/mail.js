@@ -1,5 +1,5 @@
 /** @type {import('./types/mail.d.ts').init} */
-export const init = ({ mailRepo, topicRepo, utils }) => ({
+export const init = ({ mailRepo, topicRepo, userRepo, utils }) => ({
   create: {
     handler: async (session, params) => {
       const { user } = session;
@@ -64,7 +64,25 @@ export const init = ({ mailRepo, topicRepo, utils }) => ({
       const topic = await topicRepo.findOne({ id: mail.topicId });
       if (!topic || topic.authorId !== user.id)
         throw utils.exception.forbidden();
-      // To do...
+
+      const query = `
+        WITH topic_subscriptions AS
+        (SELECT * FROM "subscription" WHERE "topicId" = $1)
+        SELECT * FROM "user" WHERE "id" IN
+        (SELECT "userId" FROM topic_subscriptions);
+      `;
+
+      const { rows } = await userRepo.query(query, [topic.id]);
+      if (!rows.length)
+        throw utils.exception.badRequest('No subscribers for such topic');
+
+      await utils.mailer.send({
+        from: user.email,
+        to: rows.map((row) => row.email).join(','),
+        subject: topic.name,
+        text: mail.content,
+      });
+
       await mailRepo.update(id, { published: true });
       return { published: true };
     },

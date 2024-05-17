@@ -1,6 +1,7 @@
 /** @type {import('./types/db.d.ts').init} */
 const init = (pool) => (table) => ({
   table,
+  query: (sql, params) => pool.query(sql, params),
   async create(definition) {
     const keys = Object.keys(definition)
       .map((key) => `"${key}"`)

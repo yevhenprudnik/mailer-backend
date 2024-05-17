@@ -1,4 +1,5 @@
 import { IncomingMessage } from 'node:http';
+import { Mailer } from './mailer';
 
 interface ApiException {
   badRequest(message?: string): void;
@@ -12,6 +13,7 @@ interface Utils {
   checkPassword(password: string, hash: string): boolean;
   receiveArgs(req: IncomingMessage): Promise<any> ;
   exception: ApiException;
+  mailer: Mailer
 }
 
 export function init(): Utils;

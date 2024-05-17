@@ -1,7 +1,8 @@
-import { Pool } from 'pg';
+import { Pool, QueryResult } from 'pg';
 
 export interface Repository<Entity> {
-  table: string,
+  table: string;
+  query: (sql: string, params?: any[]) => Promise<QueryResult>;
   create(definition: Partial<Entity>): Promise<Entity>;
   update(id: number, definition: Partial<Entity>): Promise<Entity>;
   findMany(definition: Partial<Entity>): Promise<Entity[]>;

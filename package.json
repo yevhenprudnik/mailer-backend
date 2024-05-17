@@ -13,12 +13,14 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.13",
     "pg": "^8.11.3",
     "redis": "^4.6.12"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^20.10.6",
+    "@types/nodemailer": "^6.4.15",
     "@types/pg": "^8.10.9",
     "@typescript-eslint/parser": "^6.17.0",
     "eslint": "^8.56.0",

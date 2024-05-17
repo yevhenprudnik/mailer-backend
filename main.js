@@ -7,6 +7,7 @@ import dbInitializer from './src/lib/db/db.js';
 import utilsInitializer from './src/lib/utils.js';
 import commonInitializer from './src/lib/common.js';
 import serverInitializer from './src/lib/transport/http-server.js';
+import mailerInitializer from './src/lib/mailer.js';
 // import redisStorageInitializer from './src/lib/db/cache/redis-storage.js';
 // import cacheWrapperInitializer from './src/lib/db/cache/cache-wrapper.js';
 /**
@@ -34,6 +35,7 @@ for (const name of entitiesFiles) {
   repositories[repoKey] = db(tableName); // repositories[repoKey] = cacheWrapper(db(tableName));
 }
 
+const mailer = mailerInitializer.init({ config: config.smtp });
 const utils = utilsInitializer.init();
 const common = commonInitializer.init({
   userRepo: repositories.userRepo,
@@ -49,7 +51,7 @@ for (const name of useCasesFiles) {
     const caseName = path.basename(name, '.js');
 
     useCasesContainer[caseName] = (await import(`./src/useCases/${name}`)).init(
-      { common, utils, ...repositories }
+      { common, utils: { ...utils, mailer }, ...repositories },
     );
   }
 }
@@ -57,5 +59,5 @@ for (const name of useCasesFiles) {
 const server = serverInitializer.init({ useCasesContainer, common, utils });
 
 server.listen(config.server.port, () => {
-  console.log('Server started on port 3000...');
+  console.log('Server started on port 8080...');
 });
