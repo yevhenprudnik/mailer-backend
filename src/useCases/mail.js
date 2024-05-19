@@ -80,7 +80,7 @@ export const init = ({ mailRepo, topicRepo, userRepo, utils }) => ({
         from: user.email,
         to: rows.map((row) => row.email).join(','),
         subject: topic.name,
-        text: mail.content,
+        html: mail.content,
       });
 
       await mailRepo.update(id, { published: true });

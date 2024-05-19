@@ -30,11 +30,9 @@ export const init = ({ topicRepo, subscriptionRepo, userRepo, utils }) => ({
     handler: async (_, params) => {
       const topics = await topicRepo.findMany(params);
 
-      await Promise.all(
-        topics.map(async (t) => {
-          t.author = await userRepo.findOne({ id: t.authorId });
-        }),
-      );
+      for (const topic of topics) {
+        topic.author = await userRepo.findOne({ id: topic.authorId });
+      }
 
       return topics;
     },
