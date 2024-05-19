@@ -3,9 +3,11 @@ import { Subscription } from '../../entities/subscription.d.ts';
 import { Utils } from '../../lib/types/utils.d.ts';
 import { RepoWrapper } from '../../lib/db/cache/types/cache-wrapper.d.ts';
 import { UseCase } from './useCase.d.ts';
+import { User } from '../../entities/user.js';
 
 interface Deps {
   topicRepo: RepoWrapper<Topic>;
+  userRepo: RepoWrapper<User>,
   subscriptionRepo: RepoWrapper<Subscription>;
   utils: Utils;
 }

@@ -1,5 +1,5 @@
 /** @type {import('./types/topic.d.ts').init} */
-export const init = ({ topicRepo, subscriptionRepo, utils }) => ({
+export const init = ({ topicRepo, subscriptionRepo, userRepo, utils }) => ({
   create: {
     handler: async (session, params) => {
       const { user } = session;
@@ -28,7 +28,15 @@ export const init = ({ topicRepo, subscriptionRepo, utils }) => ({
 
   search: {
     handler: async (_, params) => {
-      return topicRepo.findMany(params);
+      const topics = await topicRepo.findMany(params);
+
+      await Promise.all(
+        topics.map(async (t) => {
+          t.author = await userRepo.findOne({ id: t.authorId });
+        }),
+      );
+
+      return topics;
     },
   },
 
@@ -60,7 +68,7 @@ export const init = ({ topicRepo, subscriptionRepo, utils }) => ({
       });
       if (subscription)
         throw utils.exception.badRequest(
-          'You are already subscribed to this topic.'
+          'You are already subscribed to this topic.',
         );
       const subscribed = await subscriptionRepo.create({
         topicId: id,
@@ -85,7 +93,7 @@ export const init = ({ topicRepo, subscriptionRepo, utils }) => ({
       });
       if (!subscription)
         throw utils.exception.badRequest(
-          'You are not subscribed to this topic.'
+          'You are not subscribed to this topic.',
         );
       const unsubscribed = await subscriptionRepo.remove(subscription.id);
 
