@@ -6,6 +6,8 @@ export interface Topic {
   author?: User;
   name: string;
   description: string;
+  subscribersCount: number;
+  followed: boolean;
 }
 
 export interface CreateTopic {

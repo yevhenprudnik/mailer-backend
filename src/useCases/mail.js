@@ -76,10 +76,12 @@ export const init = ({ mailRepo, topicRepo, userRepo, utils }) => ({
       if (!rows.length)
         throw utils.exception.badRequest('No subscribers for such topic');
 
+      const subject = `${topic.name}: ${mail.title ?? ''}`;
+
       await utils.mailer.send({
         from: user.email,
         to: rows.map((row) => row.email).join(','),
-        subject: topic.name,
+        subject,
         html: mail.content,
       });
 

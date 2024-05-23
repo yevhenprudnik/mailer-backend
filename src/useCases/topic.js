@@ -27,11 +27,18 @@ export const init = ({ topicRepo, subscriptionRepo, userRepo, utils }) => ({
   },
 
   search: {
-    handler: async (_, params) => {
+    access: 'common',
+    handler: async (session, params) => {
+      const { user } = session;
       const topics = await topicRepo.findMany(params);
 
       for (const topic of topics) {
         topic.author = await userRepo.findOne({ id: topic.authorId });
+        const subscribers = await subscriptionRepo.findMany({
+          topicId: topic.id,
+        });
+        topic.subscribersCount = subscribers.length ?? 0;
+        topic.followed = subscribers.some((s) => s.userId === user.id);
       }
 
       return topics;
